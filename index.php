@@ -9,11 +9,14 @@
 		<link rel="stylesheet" type="text/css" href="style.css" />
 		</head>
 	<body>
-		<div id="head">
+		<div id="header">
+			<H1>HEADER</H1>
 		</div>
 		<div id="categories">
+			<H1>CATEGORIES</H1>
 		</div>
 		<div id="content">
+			<H1>CONTENT</H1>
 		</div>
 		<div id="user">
 			<?php 		
@@ -21,7 +24,7 @@
 			?>
 				<div id="userInfo">
 					Hola <?php echo $_SESSION["user"]->getNickname(); ?><br />
-					Tus puntos <?php $_SESSION["user"]->getPoints(); ?><br />
+					Tus puntos: <?php $_SESSION["user"]->getPoints(); ?><br />
 					<input type="submit" value="Salir" />
 				</div>
 			<?php } else{ ?>
@@ -43,6 +46,9 @@
 				<div id="userError">
 				</div>
 			<?php } ?>
+		</div>
+		<div id="footer">
+			<H1>FOOTER</H1>
 		</div>
 	</body>
 </html>
