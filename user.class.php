@@ -1,4 +1,6 @@
-<?php 
+<?php
+require_once('dbhandler.class.php');
+
 class User{
 
 	private $id_user;
@@ -17,12 +19,12 @@ class User{
 		$this->setPoints($points);
         }
 
+	function __destruct() {
+		$this->logout();
+	}
+
         function addPoints($change){
         	$this->points += $change;
-        }
-
-        function exists(){
-        	//comprueba si existe este usuario en la db
         }
         
 	//******* GETS *********************        
@@ -47,11 +49,21 @@ class User{
 		return $this->id_user > 0;
 	}        
 
-	function login($email, $pass){
-		//...
+	function login($nickname, $password){
+		$db = new DBHandler();
+		$data = $db->loginUser($nickname, $password);
+		if ($data["id_user"] != NULL) {
+			$this->setId_user($data["id_user"]);
+			$this->setNickname($data["nickname"]);
+			$this->setEmail($data["email"]);
+			$this->setPoints($data["points"]);
+		} else {
+			$this->setId_user(-1);
+		}
 	} 
 	   
 	function logout(){
+		if ($this->isLogged()) $this->update();
 		$this->id_user = -3;
 	}
 	    
@@ -74,7 +86,8 @@ class User{
 	//**********************************    
 
 	function update(){
-		//guarda los cambios en la db
+		$db = new DBHandler();
+		$db->updatePoints($this->nickname, $this->points);
 	}   
 }
 
